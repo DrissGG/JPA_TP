@@ -1,6 +1,7 @@
 package com.aplose.formationjpa2;
 
 import com.aplose.formationjpa2.model.Book;
+import com.aplose.formationjpa2.model.CD;
 import com.aplose.formationjpa2.model.Address;
 import com.aplose.formationjpa2.model.Artist;
 import com.aplose.formationjpa2.model.Customer;
@@ -15,28 +16,36 @@ public class FormationJPA2 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EntityManager em = JPAUtils.getInstance().getEntityManager();
-		
-		
+				
 		Book b = new Book();
         b.setTitle("Limitless");
-        b.setDescription("Un bouquin de dev à lire absolument...");
+//        b.setDescription("Un bouquin de dev à lire absolument...");
         b.setPrice(25F);
         b.setIllustrations(Boolean.TRUE);
         b.setNbOfPages(250);
         Book b1 = new Book();
         b1.setTitle("Le petit prince");
         
+        CD c = new CD();
+        c.setTitle("This is a good title for a CD");
+//        c.setDescription("This is a good CD");
+        c.setPrice(12f);
+        c.getTracks().put(1, "première musique");
+        c.getTracks().put(2, "deuxième musique");
+        c.getTracks().put(3, "troisième musique");
+        CD cds = new CD();
+        CD cds2 = new CD();
         
-//        CD cds = new CD();
-//        
-//        Artist johnny= new Artist();
-//        johnny.setNickname("Johnny");
-//        Artist billy= new Artist();
-//        billy.setNickname("Billy");
-//        cd.getArtists().add(johnny);
-//        cd.getArtists().add(billy);
-//        cd2.getArtists().add(johnny);
-//        cd2.getArtists().add(billy);
+        
+        Artist johnny= new Artist();
+        johnny.setNickname("Johnny");
+        Artist billy= new Artist();
+        billy.setNickname("Billy");
+        
+        cds.getArtists().add(johnny);
+        cds.getArtists().add(billy);
+        cds2.getArtists().add(johnny);
+        cds2.getArtists().add(billy);
         
         
         Address addr = new Address();
@@ -72,6 +81,9 @@ public class FormationJPA2 {
         em.getTransaction().begin();
         em.persist(b);
         em.persist(b1);
+        em.persist(c);
+        em.persist(billy);
+        em.persist(johnny);
         em.persist(custom);
         em.persist(addr);
         em.persist(orderLine);
