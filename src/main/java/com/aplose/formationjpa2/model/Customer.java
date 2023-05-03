@@ -4,9 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "findCustomerByCity", query = "SELECT c FROM Customer c WHERE c.address.city = :city"),
+	@NamedQuery(name = "findCustomerByZipcode", query = "SELECT c FROM Customer c WHERE c.address.zipcode = :zipcode"),
+})
 public class Customer {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

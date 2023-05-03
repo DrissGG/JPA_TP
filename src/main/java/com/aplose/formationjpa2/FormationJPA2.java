@@ -2,6 +2,10 @@ package com.aplose.formationjpa2;
 
 import com.aplose.formationjpa2.model.Book;
 import com.aplose.formationjpa2.model.CD;
+
+import java.util.Iterator;
+import java.util.List;
+
 import com.aplose.formationjpa2.model.Address;
 import com.aplose.formationjpa2.model.Artist;
 import com.aplose.formationjpa2.model.Customer;
@@ -9,6 +13,8 @@ import com.aplose.formationjpa2.model.OrderLine;
 import com.aplose.formationjpa2.model.PurchaseOrder;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
 import com.aplose.formationjpa2.model.Book;
 
 public class FormationJPA2 {
@@ -90,6 +96,18 @@ public class FormationJPA2 {
         em.persist(orderLine2);
         em.persist(purchOrder);
         em.getTransaction().commit();
+        
+        TypedQuery<Customer> typedQuery = em.createQuery("SELECT  c FROM Customer c WHERE c.address.city ='Montpellier' ", Customer.class);
+        
+        List<Customer> customers = typedQuery.getResultList();
+        for (Customer customer1 : customers) {
+        	System.out.println("Customer id: " + customer1.getId());
+        	System.out.println("Customer id: " + customer1.getFirstname());
+        	System.out.println("Customer id: " + customer1.getLastName());
+			
+		}
+        
+//        em.refresh(cds);
 		
 		Book b2 = em.find(Book.class, 4); // select sql (find)
 		if(b2 == null) {
